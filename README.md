@@ -45,7 +45,8 @@ You can also define how many tasks a worker can execute concurrently and if the 
 should be spawned lazily:
 
 ```dart
-Worker worker = new Worker(poolSize: 4, spawnLazily: false);
+import 'dart:io'
+Worker worker = new Worker(poolSize: Platform.numberOfProcessors, spawnLazily: false);
 ```
 If you want to manage the isolates and SendPorts yourself but still use Tasks,
 WorkerIsolate comes to the rescue:
