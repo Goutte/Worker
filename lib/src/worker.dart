@@ -2,7 +2,6 @@ library worker;
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:io';
 import 'dart:isolate';
 import 'package:stack_trace/stack_trace.dart';
 
@@ -13,7 +12,7 @@ part 'worker_isolate_src.dart';
  * A concurrent [Task] executor.
  *
  * A [Worker] creates and manages a pool of isolates providing you with an easy
- * way to perform blocking tasks concurrently. It spawns isolates lazilly as [Task]s
+ * way to perform blocking tasks concurrently. It spawns isolates lazily as [Task]s
  * are required to execute.
  */
 
@@ -34,7 +33,7 @@ abstract class Worker {
 
   factory Worker ({int poolSize, bool spawnLazily : true}) {
     if (poolSize == null) {
-      poolSize = Platform.numberOfProcessors;
+      poolSize = 1;
     }
 
     return new _WorkerImpl(poolSize: poolSize, spawnLazily: spawnLazily);

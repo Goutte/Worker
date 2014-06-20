@@ -5,7 +5,8 @@ import 'package:worker/worker.dart';
 import 'package:unittest/unittest.dart';
 
 void constructionTest() {
-  final numberOfProcessors = Platform.numberOfProcessors;
+  // The default number of processors the Worker starts with
+  final numberOfProcessors = 1;
   
   group('Worker construction:', () {
     Worker worker;
@@ -20,7 +21,7 @@ void constructionTest() {
     });
 
     test('with poolSize parameter constructor', () {
-      int poolSize = 4;
+      int poolSize = Platform.numberOfProcessors;
       worker = new Worker(poolSize: poolSize);
       expect(worker.poolSize, equals(poolSize));
       expect(worker.isolates, isEmpty);
@@ -39,7 +40,7 @@ void constructionTest() {
     });
 
     test('with poolSize and spawnLazily parameters constructor', () {
-      int poolSize = 4;
+      int poolSize = Platform.numberOfProcessors;
       worker = new Worker(poolSize: poolSize, spawnLazily: false);
       expect(worker.poolSize, poolSize);
       expect(worker.isolates, hasLength(poolSize));
